@@ -5,8 +5,6 @@ import time
 def obtener_cuentas():
     cuentas = []
     archivo = open("cuentas.csv", "r")
-    print("Leyendo info de sistema.")
-    time.sleep(2)
     archivo_csv_leido = csv.reader(archivo)
     primera_linea = True
 
@@ -19,9 +17,7 @@ def obtener_cuentas():
             # para poder omitir la 1° linea
             primera_linea = False
     archivo.close()
-    print("Info procesada... Aplicando débito.")
-    time.sleep(2)
-
+    '''
     # -------------------------
     fl = True
     gastos_discount = {}
@@ -34,16 +30,15 @@ def obtener_cuentas():
             fl = False
     gastos.close()
     cuentas_actualizadas = []
-    cuentas_actualizadas.append(['nro_de_cuenta', 'titular', 'saldo', 'activa'])
+    #cuentas_actualizadas.append(['nro_de_cuenta', 'titular', 'saldo', 'activa'])
     for cta in cuentas:
         nro_cta = cta[0]
         saldo = float(cta[2])
         gastos = float(gastos_discount.get(nro_cta, None))
         saldo_restante = saldo - gastos
         cuentas_actualizadas.append([nro_cta, cta[1], str(saldo_restante), cta[3]])
-    print("Cuentas actlualizadas")
-    time.sleep(3)
-    return cuentas_actualizadas
+    '''
+    return cuentas
 
 
 def guardar_cuentas(cuentas_actualizadas):
@@ -51,7 +46,6 @@ def guardar_cuentas(cuentas_actualizadas):
     archivo_final_csv = csv.writer(archivo_final)
     archivo_final_csv.writerows(cuentas_actualizadas)
     archivo_final.close()
-    print("Información actualizada correctamente.")
 
 if __name__ == '__main__':
     ctas = obtener_cuentas()
